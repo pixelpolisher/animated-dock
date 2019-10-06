@@ -1,0 +1,91 @@
+.dock {
+  $comp: &;
+
+  background: url(../img/animation.png) no-repeat 0 0;
+  height: 512px;
+  position: relative;
+
+  &__window {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 792px;
+    height: 480px;
+    overflow: hidden;
+    background: linear-gradient(to top, #000 0%,#fff 100%);
+
+    &:hover #{$comp}__visual {
+      opacity: 1;
+    }
+  }
+
+  &__surface {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 792px;
+    height: 82px;
+    background: linear-gradient(to bottom, #aeaeae 0%, #bababa 30%, #cecece 60%, #fdfdfd 90%, #fff 100%);
+  }
+
+  &__visual {
+    background: url(../img/bg-animation.png) no-repeat 0 0;
+    width: 3100px;
+    height: 396px;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  &__icon {
+    position: absolute;
+    transform: scale(0.5);
+
+    &--car {
+      background: url(../img/car.png);
+      width: 220px;
+      height: 200px;
+      bottom: -20px;
+    }
+
+    &--robot {
+      background: url(../img/robot.png);
+      width: 147px;
+      height: 294px;
+      bottom: -50px;
+      left: 180px;
+    }
+
+    &--lightbulb {
+      background: url(../img/lightbulb.png);
+      width: 60px;
+      height: 193px;
+      left: 330px;
+      bottom: 0;
+    }
+
+    &--diver {
+      background: url(../img/diver.png);
+      width: 100px;
+      height: 200px;
+      bottom: -10px;
+      left: 425px;
+    }
+
+    &--phone {
+      background: url(../img/mp3-player.png);
+      width: 81px;
+      height: 300px;
+      left: 560px;
+      bottom: -80px;
+    }
+
+    &--nun {
+      background: url(../img/nun.png);
+      width: 61px;
+      height: 300px;
+      bottom: -50px;
+      right: 50px;
+    }
+  }
+}

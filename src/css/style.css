@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+html {
+  overflow-y: scroll;
+  max-width: 100vw;
+  overflow-x: hidden; }
+
+body {
+  background: #fff;
+  color: #676258;
+  font: 100%/1.6 normal;
+  font-family: Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.main {
+  width: 970px;
+  margin: 0 auto; }
+
+img {
+  border: 0;
+  max-width: 100%;
+  height: auto; }
+
+.dock {
+  background: url(../img/animation.png) no-repeat 0 0;
+  height: 512px;
+  position: relative; }
+  .dock__window {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 792px;
+    height: 480px;
+    overflow: hidden;
+    background: linear-gradient(to top, #000 0%, #fff 100%); }
+    .dock__window:hover .dock__visual {
+      opacity: 1; }
+  .dock__surface {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 792px;
+    height: 82px;
+    background: linear-gradient(to bottom, #aeaeae 0%, #bababa 30%, #cecece 60%, #fdfdfd 90%, #fff 100%); }
+  .dock__visual {
+    background: url(../img/bg-animation.png) no-repeat 0 0;
+    width: 3100px;
+    height: 396px;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.4s; }
+  .dock__icon {
+    position: absolute;
+    transform: scale(0.5); }
+    .dock__icon--car {
+      background: url(../img/car.png);
+      width: 220px;
+      height: 200px;
+      bottom: -20px; }
+    .dock__icon--robot {
+      background: url(../img/robot.png);
+      width: 147px;
+      height: 294px;
+      bottom: -50px;
+      left: 180px; }
+    .dock__icon--lightbulb {
+      background: url(../img/lightbulb.png);
+      width: 60px;
+      height: 193px;
+      left: 330px;
+      bottom: 0; }
+    .dock__icon--diver {
+      background: url(../img/diver.png);
+      width: 100px;
+      height: 200px;
+      bottom: -10px;
+      left: 425px; }
+    .dock__icon--phone {
+      background: url(../img/mp3-player.png);
+      width: 81px;
+      height: 300px;
+      left: 560px;
+      bottom: -80px; }
+    .dock__icon--nun {
+      background: url(../img/nun.png);
+      width: 61px;
+      height: 300px;
+      bottom: -50px;
+      right: 50px; }
