@@ -37,55 +37,58 @@
     transition: opacity 0.4s;
   }
 
-  &__icon {
+  &__icons {
     position: absolute;
+    left: 15px;
+    right: 0;
+    bottom: -80px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__icon {
     transform: scale(0.5);
+    height: 300px;
+    flex: 1 0 auto;
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+    position: relative;
+    transform-origin: 50% 70%;
+    backface-visibility: hidden;
 
     &--car {
-      background: url(../img/car.png);
-      width: 220px;
-      height: 200px;
-      bottom: -20px;
+      background-image: url(../img/car.png);
+      flex-basis: 200px;
+      margin: 0 -80px;
+      bottom: 40px;
     }
 
     &--robot {
-      background: url(../img/robot.png);
-      width: 147px;
-      height: 294px;
-      bottom: -50px;
-      left: 180px;
+      background-image: url(../img/robot.png);
+      flex-basis: 147px;
+      margin: 0 -60px;
+      bottom: 40px;
     }
 
     &--lightbulb {
-      background: url(../img/lightbulb.png);
-      width: 60px;
-      height: 193px;
-      left: 330px;
-      bottom: 0;
+      background-image: url(../img/lightbulb.png);
+      margin: 0 -10px;
+      bottom: 65px;
     }
 
     &--diver {
-      background: url(../img/diver.png);
-      width: 100px;
-      height: 200px;
-      bottom: -10px;
-      left: 425px;
+      background-image: url(../img/diver.png);
+      bottom: 60px;
     }
 
-    &--phone {
-      background: url(../img/mp3-player.png);
-      width: 81px;
-      height: 300px;
-      left: 560px;
-      bottom: -80px;
+    &--mp3-player {
+      background-image: url(../img/mp3-player.png);
+      bottom: 40px;
     }
 
     &--nun {
-      background: url(../img/nun.png);
-      width: 61px;
-      height: 300px;
-      bottom: -50px;
-      right: 50px;
+      background-image: url(../img/nun.png);
+      bottom: 40px;
     }
   }
 }

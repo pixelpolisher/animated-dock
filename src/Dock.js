@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
+import Icon from './Icon';
 import throttle from 'lodash/throttle';
 
 class Dock extends Component {
@@ -31,7 +32,7 @@ class Dock extends Component {
   }
 
   render() {
-    const config = { stiffness: 70, damping: 4 };
+    const config = { stiffness: 40, damping: 5 };
     const toCSS = (translateX) => ({ transform: `translateX(${translateX}px)` })
 
 
@@ -43,12 +44,14 @@ class Dock extends Component {
                   style={{ translateX: spring(this.state.mouseX, config) }}>
                   { (value) => <div className="dock__visual" style={toCSS(value.translateX)} />  }
           </Motion>
-          <span className="dock__icon dock__icon--car" />
-          <span className="dock__icon dock__icon--robot" />
-          <span className="dock__icon dock__icon--lightbulb" />
-          <span className="dock__icon dock__icon--diver" />
-          <span className="dock__icon dock__icon--phone" />
-          <span className="dock__icon dock__icon--nun" />
+          <div className="dock__icons">
+            <Icon icon="car" />
+            <Icon icon="robot" />
+            <Icon icon="lightbulb" />
+            <Icon icon="diver" />
+            <Icon icon="mp3-player" />
+            <Icon icon="nun" />
+          </div>
         </div>
       </div>
     );
