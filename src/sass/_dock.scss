@@ -1,0 +1,94 @@
+.dock {
+  $comp: &;
+
+  background: url(../img/animation.png) no-repeat 0 0;
+  height: 512px;
+  position: relative;
+
+  &__window {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 792px;
+    height: 480px;
+    overflow: hidden;
+    background: linear-gradient(to top, #000 0%,#fff 100%);
+
+    &:hover #{$comp}__visual {
+      opacity: 1;
+    }
+  }
+
+  &__surface {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 792px;
+    height: 82px;
+    background: linear-gradient(to bottom, #aeaeae 0%, #bababa 30%, #cecece 60%, #fdfdfd 90%, #fff 100%);
+  }
+
+  &__visual {
+    background: url(../img/bg-animation.png) no-repeat 0 0;
+    width: 3100px;
+    height: 396px;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  &__icons {
+    position: absolute;
+    left: 15px;
+    right: 0;
+    bottom: -80px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__icon {
+    transform: scale(0.5);
+    height: 300px;
+    flex: 1 0 auto;
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+    position: relative;
+    transform-origin: 50% 70%;
+    backface-visibility: hidden;
+
+    &--car {
+      background-image: url(../img/car.png);
+      flex-basis: 200px;
+      margin: 0 -80px;
+      bottom: 40px;
+    }
+
+    &--robot {
+      background-image: url(../img/robot.png);
+      flex-basis: 147px;
+      margin: 0 -60px;
+      bottom: 40px;
+    }
+
+    &--lightbulb {
+      background-image: url(../img/lightbulb.png);
+      margin: 0 -10px;
+      bottom: 65px;
+    }
+
+    &--diver {
+      background-image: url(../img/diver.png);
+      bottom: 60px;
+    }
+
+    &--mp3-player {
+      background-image: url(../img/mp3-player.png);
+      bottom: 40px;
+    }
+
+    &--nun {
+      background-image: url(../img/nun.png);
+      bottom: 40px;
+    }
+  }
+}
