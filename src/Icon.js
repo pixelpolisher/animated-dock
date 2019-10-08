@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
+import delay from 'lodash/delay';
+import classnames from 'classnames';
 
 const hitRegion = 220;
 
@@ -21,15 +23,26 @@ class Icon extends Component {
     this.getIconPosition = this.getIconPosition.bind(this);
     this.handleMouseMove = throttle(this.handleMouseMove, 50);
     this.handleTouchMove = throttle(this.handleTouchMove, 50);
+    this.addMoveListeners = this.addMoveListeners.bind(this);
+    this.removeMoveListeners = this.removeMoveListeners.bind(this);
     this.measureAfterResize = debounce(this.measureAfterResize, 500);
+    this.resetIcon = this.resetIcon.bind(this);
   }
 
   componentDidMount() {
     this.getIconPosition();
+    this.addMoveListeners();
+    window.addEventListener('resize', this.measureAfterResize);
+  }
 
+  addMoveListeners() {
     window.addEventListener('mousemove', this.handleMouseMove);
     window.addEventListener('touchmove', this.handleTouchMove);
-    window.addEventListener('resize', this.measureAfterResize);
+  }
+
+  removeMoveListeners() {
+    window.removeEventListener('mousemove', this.handleMouseMove);
+    window.removeEventListener('touchmove', this.handleTouchMove);
   }
 
   getIconPosition() {
@@ -62,15 +75,28 @@ class Icon extends Component {
     this.handleMouseMove(touches[0]);
   }
 
+  activateIcon(index) {
+    this.props.showPanel(index);
+  }
+
+  resetIcon() {
+    console.log('reset');
+    this.addMoveListeners();
+    this.setState({ isActive: false });
+  }
+
   render() {
     const {
-      icon
+      icon,
+      index,
+      isActive
     } = this.props;
 
     return (
       <div
-        className={`dock__icon dock__icon--${icon}`}
+        className={classnames("dock__icon", `dock__icon--${icon}`, { "dock__icon--active": isActive })}
         ref={this.icon}
+        onClick={() => { this.activateIcon(index) }}
         style={{ transform: `scale(${this.state.iconScale})` }}
       />
     );
