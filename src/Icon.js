@@ -3,7 +3,10 @@ import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
 import classnames from 'classnames';
 
-const hitRegion = 220;
+// declare variables globally so that we can access them everywhere within our component
+let iconWidth = 0;
+let hitRegion = 0;
+let scaleFactor = 0;
 
 class Icon extends Component {
 
@@ -16,40 +19,35 @@ class Icon extends Component {
       mouseY: 0,
       iconX: 0,
       iconY: 0,
-      iconScale: 0.5
+      iconScale: 1
     }
 
     this.getIconPosition = this.getIconPosition.bind(this);
     this.handleMouseMove = throttle(this.handleMouseMove, 50);
     this.handleTouchMove = throttle(this.handleTouchMove, 50);
-    this.addMoveListeners = this.addMoveListeners.bind(this);
-    this.removeMoveListeners = this.removeMoveListeners.bind(this);
     this.measureAfterResize = debounce(this.measureAfterResize, 500);
-    this.resetIcon = this.resetIcon.bind(this);
   }
 
   componentDidMount() {
+    // get the correct values for our global variables
+    iconWidth = this.icon.current.offsetWidth;
+    hitRegion = this.props.hitRegion;
+    scaleFactor = this.props.scaleFactor;
+
     this.getIconPosition();
-    this.addMoveListeners();
+    window.addEventListener('mousemove', this.handleMouseMove);
+    window.addEventListener('touchmove', this.handleTouchMove);
     window.addEventListener('resize', this.measureAfterResize);
   }
 
-  addMoveListeners() {
-    window.addEventListener('mousemove', this.handleMouseMove);
-    window.addEventListener('touchmove', this.handleTouchMove);
-  }
-
-  removeMoveListeners() {
-    window.removeEventListener('mousemove', this.handleMouseMove);
-    window.removeEventListener('touchmove', this.handleTouchMove);
-  }
-
   getIconPosition() {
-    const iconX = Math.round((this.icon.current.getBoundingClientRect().left) + (this.icon.current.offsetWidth / 4));
-    const iconY = Math.round((this.icon.current.getBoundingClientRect().top) + (this.icon.current.offsetHeight / 4));
+    // get the value of iconX and iconY. This is the exact center of the dom element
+    const iconX = Math.round((this.icon.current.getBoundingClientRect().left) + (this.icon.current.offsetWidth / 2));
+    const iconY = Math.round((this.icon.current.getBoundingClientRect().top) + (this.icon.current.offsetHeight / 2));
     this.setState({ iconX: iconX, iconY: iconY });
   }
 
+  // if window is resized, iconX and Y have changed because they're relative to the viewport
   measureAfterResize = () => {
     this.getIconPosition();
   }
@@ -58,46 +56,46 @@ class Icon extends Component {
     const dx = this.state.iconX - x;
 		const dy = this.state.iconY - y;
 		const dist = Math.sqrt(dx*dx + dy*dy);
+
+    // size is inverse to the distance of the mouse from the icon's center
+    // the closer you get to the center, the larger the icon becomes
     let size =- dist;
+    size = (size + (iconWidth * scaleFactor)) / iconWidth;
 
-    size = (size + 400) / 530;
-
-    if (dist < hitRegion && size > 0.5) {
+    // prevent icon from scaling down below 100%
+    if (dist < hitRegion && size > 1) {
       this.setState({ iconScale: size })
 		}
 		else {
-      this.setState({ iconScale: 0.5 })
+      this.setState({ iconScale: 1 })
 		}
   }
 
+  // touch devices
   handleTouchMove({touches}) {
     this.handleMouseMove(touches[0]);
   }
 
+  // icon has been clicked. Take care of the logic in the parent component
   activateIcon(index) {
     this.props.showPanel(index);
   }
 
-  resetIcon() {
-    console.log('reset');
-    this.addMoveListeners();
-    this.setState({ isActive: false });
-  }
-
   render() {
     const {
-      icon,
       index,
-      isActive
+      isActive,
+      image
     } = this.props;
 
     return (
       <div
-        className={classnames("dock__icon", `dock__icon--${icon}`, { "dock__icon--active": isActive })}
+        className={classnames("dock__icon", { "dock__icon--active": isActive })}
         ref={this.icon}
         onClick={() => { this.activateIcon(index) }}
-        style={{ transform: `scale(${this.state.iconScale})` }}
-      />
+        style={{ transform: `scale(${this.state.iconScale})` }}>
+        <img className="dock__image" src={`images/${image}`} onLoad={this.imageOnload} alt="" />
+      </div>
     );
   }
 }

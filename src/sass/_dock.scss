@@ -1,18 +1,34 @@
 .dock {
   $comp: &;
 
-  background: url(../img/animation.png) no-repeat 0 0;
   height: 512px;
   position: relative;
+
+  &::before,
+  &::after {
+    @include pseudo-content(fixed);
+    left: 0;
+    right: 0;
+  }
+
+  &::before {
+    top: 0;
+    bottom: calc(50% - 172px);
+    background: linear-gradient(to top, #000 0%, rgba(#fff, 0) 100%);
+  }
+
+  &::after {
+    top: calc(50% + 172px);
+    bottom: 0;
+    background: linear-gradient(to bottom, #aeaeae 0%, #bababa 30%, #cecece 60%, #fdfdfd 90%, #fff 100%);
+  }
 
   &__window {
     position: absolute;
     right: 0;
     bottom: 0;
-    width: 792px;
+    left: 0;
     height: 480px;
-    overflow: hidden;
-    background: linear-gradient(to top, #000 0%,#fff 100%);
 
     &--active #{$comp}__visual,
     &:hover #{$comp}__visual {
@@ -23,7 +39,7 @@
       #{$comp}__icon {
         cursor: default;
         opacity: 0;
-        transform: scale(0.5) !important;
+        transform: scale(1) !important;
         transition: transform 0.6s, opacity 0.3s;
 
         &--active {
@@ -33,19 +49,7 @@
     }
   }
 
-  &__surface {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 792px;
-    height: 82px;
-    background: linear-gradient(to bottom, #aeaeae 0%, #bababa 30%, #cecece 60%, #fdfdfd 90%, #fff 100%);
-  }
-
   &__visual {
-    background: url(../img/bg-animation.png) no-repeat 0 0;
-    width: 3100px;
-    height: 396px;
     position: absolute;
     opacity: 0;
     transition: opacity 0.4s;
@@ -61,75 +65,93 @@
   }
 
   &__icon {
-    transform: scale(0.5);
     height: 300px;
     flex: 1 0 auto;
     background-repeat: no-repeat;
     background-position: 50% 100%;
     position: relative;
-    transform-origin: 50% 70%;
     transition: opacity 0.3s;
     z-index: 1;
     cursor: pointer;
+  }
 
-    &--car {
-      background-image: url(../img/car.png);
-      flex-basis: 200px;
-      margin: 0 -80px;
-      bottom: 40px;
-    }
-
-    &--robot {
-      background-image: url(../img/robot.png);
-      flex-basis: 147px;
-      margin: 0 -60px;
-      bottom: 40px;
-    }
-
-    &--lightbulb {
-      background-image: url(../img/lightbulb.png);
-      margin: 0 -10px;
-      bottom: 65px;
-    }
-
-    &--diver {
-      background-image: url(../img/diver.png);
-      bottom: 60px;
-    }
-
-    &--mp3-player {
-      background-image: url(../img/mp3-player.png);
-      bottom: 40px;
-    }
-
-    &--nun {
-      background-image: url(../img/nun.png);
-      bottom: 40px;
-    }
+  &__image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
   }
 
   &__info {
     position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 82px;
-    background: rgba(#fff, 0.9);
-    width: 300px;
+    right: 15px;
+    top: -999em;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(#000, 0.5);
+    width: 460px;
+    min-height: 202px;
     border: 1px solid #fff;
     border-width: 0 0 0 1px;
     padding: 30px;
-    transform: translateY(-100%);
     opacity: 0;
-    transition: transform 0.3s cubic-bezier(0.65, 0.06, 0.36, 0.95), opacity 0.7s;
+    transition: top 0s, opacity 0.2s;
+    transition-delay: 0.2s, 0s;
 
     &--active {
-      transform: translateY(0);
+      top: 60px;
       opacity: 1;
+      transition-duration: 0s, 0.7s;
+      transition-delay: 0s, 0s;
     }
   }
 
+  &__title {
+    font-size: 1.7em;
+    margin-bottom: 0.2em;
+    font-style: italic;
+    font-family: Times, serif;
+  }
+
   &__close {
-    position: relative;
+    position: absolute;
     z-index: 2;
+    right: 0;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    background: lighten(#34505f, 10%);
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    text-indent: -999em;
+    display: block;
+    border: 1px solid #fff;
+    box-shadow: 0 0 5px rgba(#000, 0.2);
+    transform: translate(50%, -50%) rotate(45deg);
+    transition: 0.2s;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      @include pseudo-content(absolute);
+      width: 2px;
+      height: 50%;
+      background: #fff;
+      top: 25%;
+      left: calc(50% - 1px);
+    }
+
+    &::after {
+      transform: rotate(90deg);
+    }
+
+    &:hover {
+      background: #34505f;
+      box-shadow: 0 0 2px rgba(#000, 0.9);
+    }
+
+    &:active {
+      top: 1px;
+    }
   }
 }

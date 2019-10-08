@@ -9,10 +9,6 @@ class App extends Component {
     return (
       <div className="App">
         <main className="main">
-          <h1>Animated dock</h1>
-          <p>
-            Originally built in flash in 2007, this version uses react and css.
-          </p>
           <Dock />
         </main>
       </div>
