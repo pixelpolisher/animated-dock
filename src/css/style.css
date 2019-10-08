@@ -4,60 +4,67 @@
   box-sizing: border-box; }
 
 html {
-  overflow-y: scroll;
   max-width: 100vw;
+  overflow-y: visible;
   overflow-x: hidden; }
 
 body {
-  background: #fff;
-  color: #676258;
   font: 92%/1.6 normal;
   font-family: Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
+#root {
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw; }
+
 .main {
-  width: 970px;
+  width: 980px;
   margin: 0 auto; }
 
 img {
   border: 0;
-  max-width: 100%;
   height: auto; }
 
 .dock {
-  background: url(../img/animation.png) no-repeat 0 0;
   height: 512px;
   position: relative; }
+  .dock::before, .dock::after {
+    content: "";
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0; }
+  .dock::before {
+    top: 0;
+    bottom: calc(50% - 172px);
+    background: linear-gradient(to top, #000 0%, rgba(255, 255, 255, 0) 100%); }
+  .dock::after {
+    top: calc(50% + 172px);
+    bottom: 0;
+    background: linear-gradient(to bottom, #aeaeae 0%, #bababa 30%, #cecece 60%, #fdfdfd 90%, #fff 100%); }
   .dock__window {
     position: absolute;
     right: 0;
     bottom: 0;
-    width: 792px;
-    height: 480px;
-    overflow: hidden;
-    background: linear-gradient(to top, #000 0%, #fff 100%); }
+    left: 0;
+    height: 480px; }
     .dock__window--active .dock__visual,
     .dock__window:hover .dock__visual {
       opacity: 1; }
     .dock__window--active .dock__icon {
       cursor: default;
       opacity: 0;
-      transform: scale(0.5) !important;
+      transform: scale(1) !important;
       transition: transform 0.6s, opacity 0.3s; }
       .dock__window--active .dock__icon--active {
         opacity: 1; }
-  .dock__surface {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 792px;
-    height: 82px;
-    background: linear-gradient(to bottom, #aeaeae 0%, #bababa 30%, #cecece 60%, #fdfdfd 90%, #fff 100%); }
   .dock__visual {
-    background: url(../img/bg-animation.png) no-repeat 0 0;
-    width: 3100px;
-    height: 396px;
     position: absolute;
     opacity: 0;
     transition: opacity 0.4s; }
@@ -69,55 +76,74 @@ img {
     display: flex;
     justify-content: space-between; }
   .dock__icon {
-    transform: scale(0.5);
     height: 300px;
     flex: 1 0 auto;
     background-repeat: no-repeat;
     background-position: 50% 100%;
     position: relative;
-    transform-origin: 50% 70%;
     transition: opacity 0.3s;
     z-index: 1;
     cursor: pointer; }
-    .dock__icon--car {
-      background-image: url(../img/car.png);
-      flex-basis: 200px;
-      margin: 0 -80px;
-      bottom: 40px; }
-    .dock__icon--robot {
-      background-image: url(../img/robot.png);
-      flex-basis: 147px;
-      margin: 0 -60px;
-      bottom: 40px; }
-    .dock__icon--lightbulb {
-      background-image: url(../img/lightbulb.png);
-      margin: 0 -10px;
-      bottom: 65px; }
-    .dock__icon--diver {
-      background-image: url(../img/diver.png);
-      bottom: 60px; }
-    .dock__icon--mp3-player {
-      background-image: url(../img/mp3-player.png);
-      bottom: 40px; }
-    .dock__icon--nun {
-      background-image: url(../img/nun.png);
-      bottom: 40px; }
+  .dock__image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.5); }
   .dock__info {
     position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 82px;
-    background: rgba(255, 255, 255, 0.9);
-    width: 300px;
+    right: 15px;
+    top: -999em;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 460px;
+    min-height: 202px;
     border: 1px solid #fff;
     border-width: 0 0 0 1px;
     padding: 30px;
-    transform: translateY(-100%);
     opacity: 0;
-    transition: transform 0.3s cubic-bezier(0.65, 0.06, 0.36, 0.95), opacity 0.7s; }
+    transition: top 0s, opacity 0.2s;
+    transition-delay: 0.2s, 0s; }
     .dock__info--active {
-      transform: translateY(0);
-      opacity: 1; }
+      top: 60px;
+      opacity: 1;
+      transition-duration: 0s, 0.7s;
+      transition-delay: 0s, 0s; }
+  .dock__title {
+    font-size: 1.7em;
+    margin-bottom: 0.2em;
+    font-style: italic;
+    font-family: Times, serif; }
   .dock__close {
-    position: relative;
-    z-index: 2; }
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    background: #466c80;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    text-indent: -999em;
+    display: block;
+    border: 1px solid #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transform: translate(50%, -50%) rotate(45deg);
+    transition: 0.2s;
+    cursor: pointer; }
+    .dock__close::before, .dock__close::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 2px;
+      height: 50%;
+      background: #fff;
+      top: 25%;
+      left: calc(50% - 1px); }
+    .dock__close::after {
+      transform: rotate(90deg); }
+    .dock__close:hover {
+      background: #34505f;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.9); }
+    .dock__close:active {
+      top: 1px; }

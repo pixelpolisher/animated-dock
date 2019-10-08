@@ -8,7 +8,8 @@ import throttle from 'lodash/throttle';
 import delay from 'lodash/delay';
 import classnames from 'classnames';
 
-const numIcons = 6;
+const numIcons = iconData.length;
+let windowWidth = 0;
 
 class Dock extends Component {
 
@@ -23,14 +24,20 @@ class Dock extends Component {
       activeIcon: 0
     }
 
-    this.handleMouseMove = throttle(this.handleMouseMove, 50);
-    this.handleTouchMove = throttle(this.handleTouchMove, 50);
-    this.toggleListeners = this.toggleListeners.bind(this);
-    this.toggleInfo = this.toggleInfo.bind(this);
-    this.showInfoPanel = this.showInfoPanel.bind(this);
+    this.handleMouseMove    = throttle(this.handleMouseMove, 50);
+    this.handleTouchMove    = throttle(this.handleTouchMove, 50);
+    this.imageOnload        = this.imageOnload.bind(this);
+    this.toggleListeners    = this.toggleListeners.bind(this);
+    this.toggleInfo         = this.toggleInfo.bind(this);
+    this.showInfoPanel      = this.showInfoPanel.bind(this);
   }
 
   componentDidMount() {
+
+  }
+
+  imageOnload() {
+    windowWidth = this.dockWindow.current.offsetWidth;
     this.toggleListeners(true);
   }
 
@@ -46,7 +53,7 @@ class Dock extends Component {
   }
 
   handleMouseMove = ({pageX: x, pageY: y}) => {
-    const xPos = ((this.dock.current.getBoundingClientRect().x) - x) * (this.dock.current.offsetWidth / 210) + 350;
+    const xPos = ((this.dock.current.getBoundingClientRect().x) - x) * (this.dock.current.offsetWidth / (windowWidth / numIcons));
     this.setState({ panelX: xPos});
   }
 
@@ -67,10 +74,9 @@ class Dock extends Component {
   showInfoPanel(index) {
     this.toggleInfo(true);
     this.setState({ activeIcon: index });
-    const windowWidth = this.dockWindow.current.offsetWidth;
     const percentage = Math.round(windowWidth / numIcons);
 
-    const posX =- Math.round((percentage * index) - (16 * index) + 50);
+    const posX =- Math.round(((percentage * index) * 0.93) + 50);
 
     delay(() => {
       this.setState({ panelX: posX });
@@ -91,9 +97,11 @@ class Dock extends Component {
       return(
         <Icon key={index}
               index={index}
-              icon={icon.symbol}
+              image={icon.image}
               isActive={isActive}
               showPanel={this.showInfoPanel}
+              hitRegion="300"
+              scaleFactor="1.8"
         />
       )
     });
@@ -107,15 +115,19 @@ class Dock extends Component {
           <div className="dock__surface" />
           <Motion defaultValue={{ translateX: 0 }}
                   style={{ translateX: spring(panelX, config) }}>
-                  { (value) => <div ref={this.dockWindow}  className="dock__visual" style={toCSS(value.translateX)} />  }
+                  {(value) =>
+                      <div ref={this.dockWindow} className="dock__visual" style={toCSS(value.translateX)}>
+                        <img src="images/bg-animation.png" alt="" onLoad={this.imageOnload} />
+                      </div>
+                  }
           </Motion>
           <div className="dock__icons">
             {icons}
           </div>
           <div className={classnames({ "dock__info": true, "dock__info--active": showInfo })}>
-            <h3>{curTitle}</h3>
-            <p>{curText}</p>
             <button className="dock__close" onClick={() => { this.toggleInfo(false); }}>close</button>
+            <h3 class="dock__title">{curTitle}</h3>
+            <p>{curText}</p>
           </div>
         </div>
       </div>
