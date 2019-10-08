@@ -83,7 +83,6 @@ class Dock extends Component {
     const {
       panelX,
       showInfo,
-      hideInfo,
       activeIcon
     } = this.state;
 
@@ -114,9 +113,9 @@ class Dock extends Component {
             {icons}
           </div>
           <div className={classnames({ "dock__info": true, "dock__info--active": showInfo })}>
-            <button className="dock__close" onClick={() => { this.toggleInfo(false); }}>close</button>
             <h3>{curTitle}</h3>
             <p>{curText}</p>
+            <button className="dock__close" onClick={() => { this.toggleInfo(false); }}>close</button>
           </div>
         </div>
       </div>

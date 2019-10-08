@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
-import delay from 'lodash/delay';
 import classnames from 'classnames';
 
 const hitRegion = 220;

@@ -21,6 +21,7 @@
 
     &--active {
       #{$comp}__icon {
+        cursor: default;
         opacity: 0;
         transform: scale(0.5) !important;
         transition: transform 0.6s, opacity 0.3s;
@@ -69,6 +70,7 @@
     transform-origin: 50% 70%;
     transition: opacity 0.3s;
     z-index: 1;
+    cursor: pointer;
 
     &--car {
       background-image: url(../img/car.png);
@@ -124,5 +126,10 @@
       transform: translateY(0);
       opacity: 1;
     }
+  }
+
+  &__close {
+    position: relative;
+    z-index: 2;
   }
 }
