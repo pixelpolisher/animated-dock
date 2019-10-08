@@ -14,8 +14,22 @@
     overflow: hidden;
     background: linear-gradient(to top, #000 0%,#fff 100%);
 
+    &--active #{$comp}__visual,
     &:hover #{$comp}__visual {
       opacity: 1;
+    }
+
+    &--active {
+      #{$comp}__icon {
+        cursor: default;
+        opacity: 0;
+        transform: scale(0.5) !important;
+        transition: transform 0.6s, opacity 0.3s;
+
+        &--active {
+          opacity: 1;
+        }
+      }
     }
   }
 
@@ -54,7 +68,9 @@
     background-position: 50% 100%;
     position: relative;
     transform-origin: 50% 70%;
-    backface-visibility: hidden;
+    transition: opacity 0.3s;
+    z-index: 1;
+    cursor: pointer;
 
     &--car {
       background-image: url(../img/car.png);
@@ -90,5 +106,30 @@
       background-image: url(../img/nun.png);
       bottom: 40px;
     }
+  }
+
+  &__info {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 82px;
+    background: rgba(#fff, 0.9);
+    width: 300px;
+    border: 1px solid #fff;
+    border-width: 0 0 0 1px;
+    padding: 30px;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.65, 0.06, 0.36, 0.95), opacity 0.7s;
+
+    &--active {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  &__close {
+    position: relative;
+    z-index: 2;
   }
 }

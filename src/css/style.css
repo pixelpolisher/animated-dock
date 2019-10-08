@@ -11,7 +11,7 @@ html {
 body {
   background: #fff;
   color: #676258;
-  font: 100%/1.6 normal;
+  font: 92%/1.6 normal;
   font-family: Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
@@ -37,8 +37,16 @@ img {
     height: 480px;
     overflow: hidden;
     background: linear-gradient(to top, #000 0%, #fff 100%); }
+    .dock__window--active .dock__visual,
     .dock__window:hover .dock__visual {
       opacity: 1; }
+    .dock__window--active .dock__icon {
+      cursor: default;
+      opacity: 0;
+      transform: scale(0.5) !important;
+      transition: transform 0.6s, opacity 0.3s; }
+      .dock__window--active .dock__icon--active {
+        opacity: 1; }
   .dock__surface {
     position: absolute;
     right: 0;
@@ -68,7 +76,9 @@ img {
     background-position: 50% 100%;
     position: relative;
     transform-origin: 50% 70%;
-    backface-visibility: hidden; }
+    transition: opacity 0.3s;
+    z-index: 1;
+    cursor: pointer; }
     .dock__icon--car {
       background-image: url(../img/car.png);
       flex-basis: 200px;
@@ -92,3 +102,22 @@ img {
     .dock__icon--nun {
       background-image: url(../img/nun.png);
       bottom: 40px; }
+  .dock__info {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 82px;
+    background: rgba(255, 255, 255, 0.9);
+    width: 300px;
+    border: 1px solid #fff;
+    border-width: 0 0 0 1px;
+    padding: 30px;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.65, 0.06, 0.36, 0.95), opacity 0.7s; }
+    .dock__info--active {
+      transform: translateY(0);
+      opacity: 1; }
+  .dock__close {
+    position: relative;
+    z-index: 2; }
