@@ -24,8 +24,7 @@ body {
   width: 100vw; }
 
 .main {
-  width: 980px;
-  margin: 0 auto; }
+  width: 980px; }
 
 img {
   border: 0;
@@ -88,13 +87,14 @@ img {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%) scale(0.5); }
+    transform: translate(-50%, -50%) translateZ(0) scale(0.6);
+    backface-visibility: hidden; }
   .dock__info {
     position: absolute;
     right: 15px;
     top: -999em;
     background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
     width: 460px;
     min-height: 202px;
     border: 1px solid #fff;

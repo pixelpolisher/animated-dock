@@ -121,7 +121,6 @@ class Dock extends Component {
     return (
       <div className="dock">
         <div className={classnames({"dock__window": true, "dock__window--active" : showInfo })} ref={this.dock}>
-          <div className="dock__surface" />
           <Motion defaultValue={{ translateX: 0 }}
                   style={{ translateX: spring(panelX, springConfig) }}>
                   {(value) =>
@@ -130,9 +129,7 @@ class Dock extends Component {
                     </div>
                   }
           </Motion>
-          <div className="dock__icons">
-            {icons}
-          </div>
+          <div className="dock__icons">{icons}</div>
           <div className={classnames({ "dock__info": true, "dock__info--active": showInfo })}>
             <button className="dock__close" onClick={() => { this.toggleInfo(false); }}>close</button>
             <h3 class="dock__title">{curTitle}</h3>
