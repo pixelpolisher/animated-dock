@@ -48,7 +48,7 @@ class Dock extends Component {
     }
     else {
       this.dock.current.removeEventListener('mousemove', this.handleMouseMove);
-      this.dock.current.addEventListener('touchmove', this.handleTouchMove);
+      this.dock.current.removeEventListener('touchmove', this.handleTouchMove);
     }
   }
 
