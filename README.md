@@ -1,6 +1,6 @@
 ## Demo
 
-See [github.pixelpolisher.com/animated-dock](http://github.pixelpolisher.com/animated-dock) for a demo.
+See [https://animated-dock.netlify.app/](https://animated-dock.netlify.app/) for a demo.
 
 ## Available Scripts
 
