@@ -1,10 +1,10 @@
 ## Demo
 
-See [https://animated-dock.netlify.app/](https://animated-dock.netlify.app/) for a demo.
+See [https://animated-dock.netlify.app](https://animated-dock.netlify.app/) for a demo.
 
 ## Available Scripts
 
-### `npm start`
+- `npm start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
